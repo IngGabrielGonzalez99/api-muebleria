@@ -11,6 +11,22 @@ def listar_prove():
     r=dumps(data)
     return r
 
+@marcas.route('/marcas/porID/<string:_id>', methods=['GET'])
+def Obtener_PorID(_id):
+    query={'_id': _id}
+    try:
+        resultado = mongo.db.productos.find(query)
+        if resultado:
+            #Si la consulta es exitosa , devuelve los datos en fromato Json 
+            return jsonify(dumps(resultado))
+        else:
+            #Si no se encuentra el documento, devuelve un mensaje adecuado 
+            return jsonify({"mensaje": "Documento no encontrado"}), 404
+    except Exception as e:
+        #Manejo de la expresion, puedes personalzar el mensaje de error segun tus 
+        return jsonify({"error": str(e)}), 500   
+
+
 @marcas.route('/marcas/porNombre/<string:nombre>', methods=['GET'])
 def Obtener_PorNombre(nombre):
     query={'nombre': nombre}
