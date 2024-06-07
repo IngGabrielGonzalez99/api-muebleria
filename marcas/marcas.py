@@ -62,4 +62,23 @@ def eliminar_PorID(id):
   except Exception as e:
     return jsonify({"Mensaje": "Error al eliminar el objeto: " + str(e)})
 
+
+@marcas.route('/marcas/actualizar/<string:id>', methods=["put"])
+def actualizar_costo(id):
+  nombreMarca=request.json["nombreMarca"]
+  RFC = request.json["RFC"]
+  paginaWeb = request.json["paginaWeb"]
+
+  try:
+      resultado = mongo.db.productos.update_one({'_id':(id)}, {"$set": {"nombreMarca": nombreMarca, "RFC": RFC, "paginaWeb": paginaWeb}})
+      if resultado:
+        return jsonify({"mensaje:": "Documento actualizado"})
+      else:
+        #Si no se encuentra el documento, devuelve un mensaje adecuado
+        return jsonify({"mensaje": "Documento no encontrado"}), 404
+  except Exception as e:
+    #Manejo de excepción, puedes personalizar el mensaje de error según
+    #tus necesidades
+    return jsonify({"Error:": str(e)}), 500
+
         
