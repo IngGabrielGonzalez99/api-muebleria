@@ -30,11 +30,10 @@ def Obtener_PorID(_id):
 
 @marcas.route('/marcas/porNombre/<string:nombre>', methods=['GET'])
 def Obtener_PorNombre(nombre):
-    query={'nombre': nombre}
-    sort = [('nombre', 1)]
-    project= { "_id": 0,"nombre":1}
+    query={'nombreMarca': nombre}
+    project= {"_id":0, "nombreMarca": 1, "RFC": 1, "paginaWeb": 1 }
     try:
-        resultado = mongo.db.marca.find(query,project).sort(sort)
+        resultado = mongo.db.marca.find_one(query,project)
         if resultado:
             #
             return jsonify(list(resultado))
