@@ -48,8 +48,8 @@ def Obtener_PorNombre(nombre):
 
 @marcas.route('/marcas/anadir')
 def agregarMarca():
-    nombre = request.json["nombre"]
-    imagen = request.json["imagen"]
+    nombre = request.json["nombreMarca"]
+    imagen = request.json["logo"]
     rfc = request.json["RFC"]
     paginaWeb = request.json["paginaWeb"]
     
