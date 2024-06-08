@@ -34,7 +34,7 @@ def Obtener_PorNombre(nombre):
     sort = [('nombre', 1)]
     project= { "_id": 0,"nombre":1}
     try:
-        resultado = mongo.db.marcas.find(query,project).sort(sort)
+        resultado = mongo.db.marca.find(query,project).sort(sort)
         if resultado:
             #
             return jsonify(list(resultado))
