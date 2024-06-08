@@ -62,7 +62,7 @@ def agregarMarca():
         }
         
     try:
-        resultado = mongo.db.marcas.insert_one(product)
+        resultado = mongo.db.marca.insert_one(product)
         if resultado:
          return jsonify({"mensaje": "Documento insertado"})
         else:
