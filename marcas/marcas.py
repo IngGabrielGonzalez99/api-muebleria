@@ -46,7 +46,7 @@ def Obtener_PorNombre(nombre):
         #Manejo de la expresion, puedes personalzar el mensaje de error segun tus 
         return jsonify({"error": str(e)}), 500
 
-@marcas.route('/marcas/anadir', methods = ["PUT"])
+@marcas.route('/marcas/anadir', methods=["POST"])
 def agregarMarca():
     nombre = request.json["nombreMarca"]
     imagen = request.json["logo"]
@@ -59,8 +59,7 @@ def agregarMarca():
             "logo": imagen,
             "RFC":  rfc,
             "paginaWeb": paginaWeb
-        }
-        
+        }   
     try:
         resultado = mongo.db.marca.insert_one(product)
         if resultado:
