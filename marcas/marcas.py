@@ -18,7 +18,7 @@ def Obtener_PorID(_id):
 
 
     try:
-        resultado = mongo.db.marcas.find(query, project)
+        resultado = mongo.db.marca.find(query, project)
         if resultado:
             #Si la consulta es exitosa , devuelve los datos en fromato Json 
             return jsonify(dumps(resultado))
