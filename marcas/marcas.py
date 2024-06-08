@@ -13,7 +13,7 @@ def listar_prove():
 
 @marcas.route('/marcas/porID/<string:_id>', methods=['GET'])
 def Obtener_PorID(_id):
-    query={'_id': _id}
+    query={'_id': ObjectId(_id)}
     project= {"_id":0, "nombreMarca": 1, "RFC": 1, "paginaWeb": 1 }
 
 
