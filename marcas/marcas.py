@@ -36,7 +36,7 @@ def Obtener_PorNombre(nombre):
         resultado = mongo.db.marca.find_one(query,project)
         if resultado:
             #
-            return jsonify(list(resultado))
+            return resultado
         else:
             #
             return jsonify({"mensaje": "Documento no encontrado"}), 404
