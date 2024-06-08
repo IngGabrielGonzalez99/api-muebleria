@@ -87,7 +87,7 @@ def actualizar_costo(id):
   paginaWeb = request.json["paginaWeb"]
 
   try:
-      resultado = mongo.db.productos.update_one({'_id':(id)}, {"$set": {"nombreMarca": nombreMarca, "RFC": RFC, "paginaWeb": paginaWeb}})
+      resultado = mongo.db.marca.update_one({'_id': ObjectId(id)}, {"$set": {"nombreMarca": nombreMarca, "RFC": RFC, "paginaWeb": paginaWeb}})
       if resultado:
         return jsonify({"mensaje:": "Documento actualizado"})
       else:
