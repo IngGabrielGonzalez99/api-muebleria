@@ -46,7 +46,7 @@ def Obtener_PorNombre(nombre):
         #Manejo de la expresion, puedes personalzar el mensaje de error segun tus 
         return jsonify({"error": str(e)}), 500
 
-@marcas.route('/marcas/anadir')
+@marcas.route('/marcas/anadir', methods = ["PUT"])
 def agregarMarca():
     nombre = request.json["nombreMarca"]
     imagen = request.json["logo"]
