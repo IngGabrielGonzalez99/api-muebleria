@@ -10,13 +10,18 @@ app = create_app()
 
 @prod.route('/products/get_all', methods=['GET'])
 def listar_prod():
-    try:
-      data=mongo.db.productos.find({})
-      #Convertir a JSON
-      r= dumps(data)
-      return  r
-    except:
-      return jsonify("No encontrado"), 404
+  res = mongo.db.productos.find({})
+  r = list(res)
+  for producto in r:
+    producto['_id'] = str(producto['_id'])
+  if r:
+    res = {
+        "results": len(r),
+        "info": "Producto encontrado con éxito",
+        "status": "success",
+        "data": r
+      }
+  return jsonify(res), 200
 
 @prod.route('/products/name/<string:nombre>', methods=['GET'])
 def Obtener_PorNombre(nombre):
@@ -40,7 +45,7 @@ def Obtener_PorNombre(nombre):
               "info": str(e)
               }), 500
     
-@prod.route('/productos/eliminar/<string:id>', methods=['DELETE'])
+@prod.route('/products/delete/<string:id>', methods=['DELETE'])
 def eliminar_PorID(id):
   try:
     resultado = mongo.db.productos.delete_one({'_id': id})
@@ -158,7 +163,7 @@ def add_producto():
     "dimensiones": {"largo": dimensionesLargo, "alto": dimensionesAlto, "ancho": dimensionesAncho},
     "color":color,
     "foto":foto,
-    'fechaAdquisicion':fecha_adquisicion,
+    'fecha_adquisicion':fecha_adquisicion,
     "cantidad_existente": cantidad_existente,
     "status": status,
     "material_de_fabricacion": material_fabricacion,
