@@ -8,29 +8,37 @@ from  bson.json_util import dumps
 prod = Blueprint ("productos", __name__)
 app = create_app()
 
-@prod.route('/productos/get_all', methods=['GET'])
+@prod.route('/products/get_all', methods=['GET'])
 def listar_prod():
-    data=mongo.db.productos.find({})
-    r=dumps(data)
-    return  r
+    try:
+      data=mongo.db.productos.find({})
+      #Convertir a JSON
+      r= dumps(data)
+      return  r
+    except:
+      return jsonify("No encontrado"), 404
 
-@prod.route('/productos/porNombre/<string:nombre>', methods=['GET'])
+@prod.route('/products/name/<string:nombre>', methods=['GET'])
 def Obtener_PorNombre(nombre):
     query={'nombre': {'$eq':nombre}}
     sort = [('nombre', 1)]
-    project= { "_id": 0,"nombre":1, "precio":1, "descripcion":1}
+    project= {"_id": 0,"nombre":1, "precio":1, "descripcion":1}
     try:
         resultado = mongo.db.productos.find(query,project).sort(sort)
-        if resultado:
-            #
-            return jsonify(list(resultado))
-        else:
-            #
-            return jsonify({"mensaje": "Documento no encontrado"}), 404
-        
+        r = list(resultado)
+        if r:
+          res = {
+              "results": len(r),
+              "info": "Producto encontrado con éxito",
+              "status": "success",
+              "data": r
+            }
+        return jsonify(res), 200     
     except Exception as e:
-        #Manejo de la expresion, puedes personalzar el mensaje de error segun tus 
-        return jsonify({"error": str(e)}), 500
+            return jsonify({
+              "status": "error",
+              "info": str(e)
+              }), 500
     
 @prod.route('/productos/eliminar/<string:id>', methods=['DELETE'])
 def eliminar_PorID(id):
