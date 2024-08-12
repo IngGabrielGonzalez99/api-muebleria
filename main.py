@@ -4,7 +4,7 @@ from productos import prod
 from proveedores.proveedores import prove
 from marcas.marcas import marcas
 from flask_cors import CORS
-
+#Pues si 2
 app = create_app()
 app.register_blueprint(prod)
 app.register_blueprint(prove)
