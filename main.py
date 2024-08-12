@@ -13,7 +13,7 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return 'Bienvenido a la api'
+    return 'Bienvenido a la api '
 
 
 if __name__ == "__main__":
