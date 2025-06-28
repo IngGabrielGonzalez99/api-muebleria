@@ -14,12 +14,12 @@ def listar_prove():
 @marcas.route('/marcas/porID/<string:_id>', methods=['GET'])
 def Obtener_PorID(_id):
     query={'_id': ObjectId(_id)}
-    project= {"_id":0, "nombreMarca": 1, "RFC": 1, "paginaWeb": 1 }
+    #project= {"_id":0, "nombreMarca": 1, "RFC": 1, "paginaWeb": 1 }
     try:
-        resultado = mongo.db.marca.find_one(query, project)
+        resultado = mongo.db.marca.find_one(query)
         if resultado:
             #Si la consulta es exitosa , devuelve los datos en fromato Json 
-            return jsonify(dumps(resultado))
+            return dumps(resultado)
         else:
             #Si no se encuentra el documento, devuelve un mensaje adecuado 
             return jsonify({"mensaje": "Documento no encontrado"}), 404

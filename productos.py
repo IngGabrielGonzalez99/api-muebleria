@@ -49,6 +49,8 @@ def Obtener_PorNombre(nombre):
 def eliminar_PorID(id):
   try:
     resultado = mongo.db.productos.delete_one({'_id': id})
+    if resultado:
+      return  resultado
     return jsonify({"Mensaje:": "Objeto eliminado"})
   except Exception as e:
     return jsonify({"Mensaje": "Objeto eliminado"})
